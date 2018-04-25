@@ -1,18 +1,24 @@
-const wordBank = [ "westeros", "ghost", "jon", "oldtown", "sansa", "longclaw", "valyria"];
-const clearKey = [];
+//list of words
+const wordBank = [ "westeros", "ghost", "jon", "oldtown", "sansa", "longclaw", "valyria", "bran", "arya", "winterfell"];
 
+//set variables
 let wins = 0;
 let loses = 0;
+let wrongGuess = 0;
+let guessesRemaining = 7;
 
+//strings
 let answer = null;
 let gameOn = false;
-let guessKey = [];
 let stringAns = "";
-let wrongGuess = 0;
+
+//arrays
+
+let guessKey = [];
 let currentWord = [];
 let guessedLetters = [];
 let wrongLetters = [];
-let guessesRemaining = 7;
+
 
 
 // Key press handling
