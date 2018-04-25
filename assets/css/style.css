@@ -1,0 +1,14 @@
+.container{
+    margin: auto;
+    width: 40%;
+}
+
+#guess-display{
+    margin: auto;
+    font-size: 200%;
+}
+
+#letter-bank{
+    margin: auto;
+}
+

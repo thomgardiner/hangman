@@ -1,5 +1,9 @@
-const wordBank = [ "test", "another", "something"];
+const wordBank = [ "test", "anothertest", "westeros", "ghost"];
 const clearKey = [];
+
+let wins = 0;
+let loses = 0;
+
 let answer = null;
 let gameOn = false;
 let guessKey = [];
@@ -14,7 +18,6 @@ document.onkeyup = function(event) {
     let keyPress = event.key;
     if(gameOn == true){
         playerGuess(keyPress);
-        scoreKeep();
     }
 
     if(gameOn == false && keyPress == "Enter"){
@@ -23,9 +26,17 @@ document.onkeyup = function(event) {
 }
 
 const clearWord = function(){
-    console.log("Cleared ln-15");
     guessKey = [];
+    currentWord = [];
+    guessedLetters = [];
+    wrongLetters = [];
+    stringAns = "";
+    wrongGuess = 0;
+
     document.getElementById("guess-display").innerHTML = guessKey;
+    document.getElementById("message").innerHTML = 'Wrong Letters';
+    document.getElementById("wrong-letters").innerHTML = wrongLetters;
+    
 }
 
 const getWord = function(){
@@ -50,15 +61,13 @@ const gameLoop = function(){
 
 const playerGuess = function(pressedKey){
     let guess = event.key;
-    console.log(guess);
-    if (guess.match(/[^a-zA-Z]/i)){
+    if (guess.match(/[^a-zA-Z]/i) || guess == "Enter" || guess == "Backspace"){
         alert("Not a valid input.");
     }
     else{
         if (guess.match(/[a-zA-Z]/i)){
             guessedLetters.push(guess);
         }
-        console.log(guessedLetters);
 
 
     let matches = 0;
@@ -67,8 +76,6 @@ const playerGuess = function(pressedKey){
         
             if(currentWord.charAt(i) == guess){
                 guessKey[i] = guess + " ";
-                console.log(guessKey);
-                console.log("matched!");
                 matches++;
             }
         }
@@ -86,16 +93,27 @@ const playerGuess = function(pressedKey){
         document.getElementById("wrong-letters").innerHTML = wrongLetters;
     }
     }
+
     stringAns = guessKey.join('')
-    console.log(stringAns);
     document.getElementById("guess-display").innerHTML = stringAns;
+    scoreKeep();
 }
 
 
 const scoreKeep = function(){
-    console.log(wrongLetters)
-    if(wrongLetters.length > 7){
-        alert("You lose!");
+    let keyCheck = currentWord.replace(/\s/g, '');
+    let guessCheck = guessKey.join('').replace(/\s/g, '');
+    if(keyCheck === guessCheck){
+        document.getElementById("message").innerHTML = 'You win! Press enter to play again.';
         gameOn = false;
+        wins++;
+    }
+    else if(wrongLetters.length > 7){
+        document.getElementById("message").innerHTML = 'You lose! Press enter to play again.';
+        gameOn = false;
+        loses++;
+    }
+    else{
+        return;
     }
 }
