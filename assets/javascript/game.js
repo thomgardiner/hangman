@@ -14,6 +14,7 @@ let guessedLetters = [];
 let wrongLetters = [];
 
 
+// Key press handling
 document.onkeyup = function(event) {
     let keyPress = event.key;
     if(gameOn == true){
@@ -25,6 +26,7 @@ document.onkeyup = function(event) {
     }
 }
 
+//Clear the game board and all relative variables
 const clearWord = function(){
     guessKey = [];
     currentWord = [];
@@ -39,6 +41,7 @@ const clearWord = function(){
     
 }
 
+//generate a new word from the word bank
 const getWord = function(){
     let ranNum = Math.floor(Math.random() * wordBank.length);
     let word = wordBank[ranNum];
@@ -53,14 +56,19 @@ const getWord = function(){
     document.getElementById("guess-display").innerHTML = stringAns;
 }
 
+//game loop execution
+
 const gameLoop = function(){
     clearWord();
     getWord();
     gameOn = true;
 }
 
+//player guess handling
+
 const playerGuess = function(pressedKey){
     let guess = event.key;
+    //make sure the player input is a letter, and if it is add it to the guessed letters bank
     if (guess.match(/[^a-zA-Z]/i) || guess == "Enter" || guess == "Backspace"){
         alert("Not a valid input.");
     }
@@ -69,7 +77,7 @@ const playerGuess = function(pressedKey){
             guessedLetters.push(guess);
         }
 
-
+    //determines if the guessed letter is already in the bank
     let matches = 0;
 
         for(i=0; i < guessKey.length; i++){
@@ -79,7 +87,7 @@ const playerGuess = function(pressedKey){
                 matches++;
             }
         }
-
+    //if the player's guess is not in the wrong letters bank, add it 
     if(matches === 0){
         let matched = false;
         for(j=0; j < wrongLetters.length; j++){
@@ -94,12 +102,13 @@ const playerGuess = function(pressedKey){
     }
     }
 
+    //displays the new string and checks to see if the player has won or lost
     stringAns = guessKey.join('')
     document.getElementById("guess-display").innerHTML = stringAns;
     scoreKeep();
 }
 
-
+//function to determine if the player has won or lost
 const scoreKeep = function(){
     let keyCheck = currentWord.replace(/\s/g, '');
     let guessCheck = guessKey.join('').replace(/\s/g, '');
