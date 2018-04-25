@@ -1,4 +1,4 @@
-const wordBank = [ "test", "anothertest", "westeros", "ghost"];
+const wordBank = [ "westeros", "ghost", "jon", "oldtown", "sansa", "longclaw", "valyria"];
 const clearKey = [];
 
 let wins = 0;
@@ -12,6 +12,7 @@ let wrongGuess = 0;
 let currentWord = [];
 let guessedLetters = [];
 let wrongLetters = [];
+let guessesRemaining = 7;
 
 
 // Key press handling
@@ -34,7 +35,9 @@ const clearWord = function(){
     wrongLetters = [];
     stringAns = "";
     wrongGuess = 0;
+    guessesRemaining = 7;
 
+    document.getElementById("game-status-message").innerHTML = '';
     document.getElementById("guess-display").innerHTML = guessKey;
     document.getElementById("message").innerHTML = 'Wrong Letters';
     document.getElementById("wrong-letters").innerHTML = wrongLetters;
@@ -69,8 +72,8 @@ const gameLoop = function(){
 const playerGuess = function(pressedKey){
     let guess = event.key;
     //make sure the player input is a letter, and if it is add it to the guessed letters bank
-    if (guess.match(/[^a-zA-Z]/i) || guess == "Enter" || guess == "Backspace"){
-        alert("Not a valid input.");
+    if (guess.match(/[^a-zA-Z]/i) || guess == "Enter" || guess == "Backspace" || guess == "CapsLock" || guess == "Shift" || guess == "Alt" || guess == "Conrtrol"){
+        alert("Not a valid input. Choose a letter!");
     }
     else{
         if (guess.match(/[a-zA-Z]/i)){
@@ -97,6 +100,8 @@ const playerGuess = function(pressedKey){
         }
         if(matched == false){
             wrongLetters.push(guess);
+            guessesRemaining--;
+            console.log(guessesRemaining);
         }
         document.getElementById("wrong-letters").innerHTML = wrongLetters;
     }
@@ -105,6 +110,7 @@ const playerGuess = function(pressedKey){
     //displays the new string and checks to see if the player has won or lost
     stringAns = guessKey.join('')
     document.getElementById("guess-display").innerHTML = stringAns;
+    document.getElementById("guess-count").textContent = guessesRemaining;
     scoreKeep();
 }
 
@@ -113,14 +119,16 @@ const scoreKeep = function(){
     let keyCheck = currentWord.replace(/\s/g, '');
     let guessCheck = guessKey.join('').replace(/\s/g, '');
     if(keyCheck === guessCheck){
-        document.getElementById("message").innerHTML = 'You win! Press enter to play again.';
+        document.getElementById("game-status-message").innerHTML = 'You win! Press enter to play again.';
         gameOn = false;
         wins++;
+        document.getElementById("win-count").innerHTML = wins;
     }
-    else if(wrongLetters.length > 7){
-        document.getElementById("message").innerHTML = 'You lose! Press enter to play again.';
+    else if(wrongLetters.length >= 7){
+        document.getElementById("game-status-message").innerHTML = 'You lose! Press enter to play again.';
         gameOn = false;
         loses++;
+        document.getElementById("lose-count").innerHTML = loses;
     }
     else{
         return;
