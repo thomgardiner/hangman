@@ -1,14 +1,72 @@
-.container{
-    margin: auto;
-    width: 45%;
-}
 
 #guess-display{
-    margin: auto;
-    font-size: 200%;
+    font-size: 300%;
+    letter-spacing: 5px;
+    text-align: center;
 }
 
 #letter-bank{
     margin: auto;
+    height: 50px;
+
 }
 
+#display-wrapper{
+    margin:auto;
+    width: 70%;
+}
+
+.container{
+    background-color: white;
+    margin-top: 40px;
+    height: 300px;
+    border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 4px 14px 42px -10px rgba(15, 15, 15, 0.75);
+}
+
+.container-fluid{
+    text-align: center;
+}
+
+#stats-display{
+    margin: auto;
+    width: 70%;
+    height: 100px;
+}
+
+#message{
+    float: left;
+}
+
+br{
+    height: 1px;
+}
+
+#top-spacing{
+    height: 75px;
+}
+
+body{
+    background-color:#92acb9;
+}
+
+#title-wrap{
+    background-color:white;
+    border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 4px 14px 42px -10px rgba(15, 15, 15, 0.75);
+    width: 400px;
+    height: 75px;    
+    margin: auto;
+    line-height: 30px;
+
+}
+
+#hint{
+    font-size: 150%;
+}

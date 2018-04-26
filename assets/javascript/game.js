@@ -1,5 +1,6 @@
 //list of words
-const wordBank = [ "westeros", "ghost", "jon", "oldtown", "sansa", "longclaw", "valyria", "bran", "arya", "winterfell"];
+
+const wordBank = [ "westeros", "ghost", "jon snow", "oldtown", "sansa stark", "longclaw", "valyria", "bran stark", "arya stark", "winterfell", "kings landing"];
 
 //set variables
 let wins = 0;
@@ -58,8 +59,14 @@ const getWord = function(){
     currentWord = word;
 
     for(i=0; i < word.length; i++){
-        let newChar = "_ ";
-        guessKey.push(newChar);
+        if(currentWord.charAt(i) !== " "){
+            let newChar = "_";
+            guessKey.push(newChar);
+        }
+        else{ //adds blank character for names with multiple words
+            let newChar1 = " ";
+            guessKey.push(newChar1);
+        }
     }
     stringAns = guessKey.join('');
     document.getElementById("guess-display").innerHTML = stringAns;
@@ -122,6 +129,7 @@ const playerGuess = function(pressedKey){
 
 //function to determine if the player has won or lost
 const scoreKeep = function(){
+
     let keyCheck = currentWord.replace(/\s/g, '');
     let guessCheck = guessKey.join('').replace(/\s/g, '');
     if(keyCheck === guessCheck){
